@@ -7,7 +7,18 @@ import Navbar from "../components/Navbar";
 
 function ProductListPage() {
   const [url, setUrl] = useState("http://localhost:3000/api/product/");
-
+  const [searchQ, setSearchQ] = useState({
+    min: 0,
+    max: Infinity,
+    name: "",
+    category: "",
+    page: 0,
+  });
+  const updateUrl = () => {
+    setUrl(
+      `http://localhost:3000/api/product/?name=${searchQ.name}&category=${searchQ.category}&page=${searchQ}&minPrice=${searchQ.min}&maxPrice=${searchQ.max}`
+    );
+  };
   return (
     <>
       <main className="container mx-auto px-4 py-6">
@@ -16,10 +27,19 @@ function ProductListPage() {
             <CreateProduct url={url} />
           </div>
           <div className="md:col-span-3">
-            <FilterForm setUrl={setUrl} />
+            <FilterForm
+              updateUrl={updateUrl}
+              setSearchQ={setSearchQ}
+              searchQ={searchQ}
+            />
           </div>
           <div className="md:col-span-3">
-            <ProductGrid url={url} setUrl={setUrl} />
+            <ProductGrid
+              url={url}
+              updateUrl={updateUrl}
+              setSearchQ={setSearchQ}
+              searchQ={searchQ}
+            />
           </div>
         </div>
       </main>

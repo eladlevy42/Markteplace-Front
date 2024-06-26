@@ -3,9 +3,8 @@ import Product from "../components/Product";
 import axios from "axios";
 import ArrowBtn from "./ArrowBtn";
 
-function ProductListPage({ url, setUrl }) {
+function ProductGrid({ url, updateUrl, setSearchQ, searchQ }) {
   const [products, setProducts] = useState([]);
-
   const [page, setPage] = useState(0);
 
   useEffect(() => {
@@ -28,16 +27,27 @@ function ProductListPage({ url, setUrl }) {
   }
   return (
     <div className=" flex">
-      <ArrowBtn dir="left" page={page} setUrl={setUrl} setPage={setPage} />
+      <ArrowBtn
+        dir="left"
+        setSearchQ={setSearchQ}
+        searchQ={searchQ}
+        updateUrl={updateUrl}
+      />
 
       <div className=" w-full h-dvh grid grid-cols-3">
         {products.map((product) => {
           return <Product key={product._id} product={product} />;
         })}
       </div>
-      <ArrowBtn dir="right" page={page} setUrl={setUrl} setPage={setPage} />
+      <ArrowBtn
+        dir="right"
+        page={page}
+        updateUrl={updateUrl}
+        setSearchQ={setSearchQ}
+        searchQ={searchQ}
+      />
     </div>
   );
 }
 
-export default ProductListPage;
+export default ProductGrid;

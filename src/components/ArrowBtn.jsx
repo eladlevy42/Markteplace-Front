@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { FaLongArrowAltLeft, FaLongArrowAltRight } from "react-icons/fa";
 
-function ArrowBtn({ dir, setUrl, page, setPage }) {
+function ArrowBtn({ dir, updateUrl, setSearchQ, searchQ }) {
   const [pagesTotal, setPagesTotal] = useState(1);
   const [visibility, setVisibility] = useState("self-center hidden");
+  const page = searchQ.page;
   useEffect(() => {
     async function getPages() {
       try {
@@ -29,11 +30,12 @@ function ArrowBtn({ dir, setUrl, page, setPage }) {
 
   function changePage() {
     if (dir === "left" && page > 0) {
-      setPage(page - 1);
-      setUrl(`http://localhost:3000/api/product/?page=${page - 1}`);
+      setSearchQ({ ...searchQ, page: page - 1 });
+      updateUrl();
+      console.log(searchQ);
     } else if (dir === "right" && page < pagesTotal - 1) {
-      setPage(page + 1);
-      setUrl(`http://localhost:3000/api/product/?page=${page + 1}`);
+      setSearchQ({ ...searchQ, page: page + 1 });
+      updateUrl();
     }
   }
 

@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import Btn from "./Global/Btn";
 import PriceRangeSlider from "./Global/Pricerange";
-function FilterForm({ setUrl }) {
+function FilterForm({ updateUrl, setSearchQ, searchQ }) {
   const [min, setMin] = useState(0);
   const [max, setMax] = useState(Infinity);
   const nameRef = useRef("");
@@ -10,9 +10,15 @@ function FilterForm({ setUrl }) {
 
   function filterProduct(ev) {
     ev.preventDefault();
-    const url = `http://localhost:3000/api/product/?name=${nameRef.current.value}&minPrice=${min}&maxPrice=${max}&category=${categoryRef.current.value}`;
-    console.log(url);
-    setUrl(url);
+    setSearchQ({
+      ...searchQ,
+      name: nameRef.current.value,
+      category: categoryRef.current.value,
+      min: min,
+      max: max,
+    });
+    console.log(searchQ);
+    updateUrl();
   }
 
   return (
