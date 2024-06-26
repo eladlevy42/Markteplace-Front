@@ -15,8 +15,9 @@ function ProductListPage() {
     page: 0,
   });
   const updateUrl = () => {
+    console.log(searchQ);
     setUrl(
-      `http://localhost:3000/api/product/?name=${searchQ.name}&category=${searchQ.category}&page=${searchQ}&minPrice=${searchQ.min}&maxPrice=${searchQ.max}`
+      `http://localhost:3000/api/product/?name=${searchQ.name}&category=${searchQ.category}&page=${searchQ.page}&minPrice=${searchQ.min}&maxPrice=${searchQ.max}`
     );
   };
   return (
