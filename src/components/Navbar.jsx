@@ -19,7 +19,7 @@ function Navbar() {
             </Link>
           </li>
           <li>
-            <Link to="/api/product" className="hover:text-gray-300">
+            <Link to="/product" className="hover:text-gray-300">
               Products
             </Link>
           </li>

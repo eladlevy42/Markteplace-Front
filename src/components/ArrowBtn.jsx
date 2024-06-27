@@ -2,15 +2,17 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { FaLongArrowAltLeft, FaLongArrowAltRight } from "react-icons/fa";
 
-function ArrowBtn({ dir, updateUrl, setSearchQ, searchQ }) {
+function ArrowBtn({ dir, handleInputChange }) {
   const [pagesTotal, setPagesTotal] = useState(1);
   const [visibility, setVisibility] = useState("self-center hidden");
-  const page = searchQ.page;
+  const page = searchParams.get("page");
   useEffect(() => {
     async function getPages() {
+      const abortConroller = new AbortController();
       try {
         const { data } = await axios.get(
-          "http://localhost:3000/api/product/count/"
+          "http://localhost:3000/api/product/count/",
+          { signal: abortConroller.signal }
         );
         setPagesTotal(Math.ceil(data.count / 9));
       } catch (err) {
@@ -30,12 +32,8 @@ function ArrowBtn({ dir, updateUrl, setSearchQ, searchQ }) {
 
   function changePage() {
     if (dir === "left" && page > 0) {
-      setSearchQ({ ...searchQ, page: page - 1 });
-      updateUrl();
       console.log(searchQ);
     } else if (dir === "right" && page < pagesTotal - 1) {
-      setSearchQ({ ...searchQ, page: page + 1 });
-      updateUrl();
     }
   }
 

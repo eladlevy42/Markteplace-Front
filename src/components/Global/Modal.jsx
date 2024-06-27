@@ -4,11 +4,11 @@ import { useNavigate } from "react-router-dom";
 const Modal = ({ children, onClose, title }) => {
   const nav = useNavigate();
   function goBack() {
-    nav("/api/product/");
+    nav("/product/");
   }
   return (
     <div
-      className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60"
+      className="z-50 fixed inset-0 flex items-center justify-center bg-black bg-opacity-60"
       onClick={goBack}
     >
       <div

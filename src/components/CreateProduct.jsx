@@ -11,7 +11,10 @@ function CreateProduct({ url }) {
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const { data } = await axios.get(url);
+        const abortController = new AbortController();
+        const { data } = await axios.get(url, {
+          signal: abortController.signal,
+        });
         setProducts(data);
       } catch (err) {
         console.error("Failed to fetch products:", err);

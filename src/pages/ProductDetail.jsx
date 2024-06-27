@@ -12,7 +12,7 @@ function ProductDetail() {
   }, []);
 
   function goBack() {
-    nav("/api/product/");
+    nav(-1);
   }
 
   function deleteItem() {
@@ -25,9 +25,13 @@ function ProductDetail() {
   }
 
   async function getProductDetail() {
+    const abortController = new AbortController();
     try {
       const { data } = await axios.get(
-        `http://localhost:3000/api/product/${id}`
+        `http://localhost:3000/api/product/${id}`,
+        {
+          signal: abortController.signal,
+        }
       );
 
       setProductElment(

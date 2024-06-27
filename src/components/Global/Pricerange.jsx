@@ -1,23 +1,21 @@
 import React, { useState } from "react";
 import ReactSlider from "react-slider";
 
-function PriceRangeSlider({ setMin, setMax }) {
+function PriceRangeSlider({ searchParams, setSearchParams }) {
   let defkey = 1;
-  const [values, setValues] = useState([0, 1000]);
-
-  function updateValues() {
-    setMin(values[0]);
-    setMax(values[1]);
-  }
+  const [values, setValues] = useState([
+    parseInt(searchParams.get("min")) || 0,
+    parseInt(searchParams.get("max")) || 1000,
+  ]);
 
   return (
-    <div className="p-4">
+    <div className="p-4 m-x-2">
       <label className="block text-gray-700 text-sm font-bold mb-2">
         Select Price Range:
       </label>
       <ReactSlider
         className="w-full h-4 my-6 relative"
-        thumbClassName="w-6 h-6 bg-blue-500 rounded-full cursor-pointer transform translate-y-2"
+        thumbClassName="w-6 h-6 bg-blue-500 rounded-full cursor-pointer transform translate-y-1"
         trackClassName="h-1 bg-gray-300"
         min={0}
         max={1000}
@@ -25,7 +23,9 @@ function PriceRangeSlider({ setMin, setMax }) {
         value={values}
         onChange={(newValues) => {
           setValues(newValues);
-          updateValues();
+          searchParams.set("min", newValues[0]);
+          searchParams.set("max", newValues[1]);
+          setSearchParams(searchParams);
         }}
         renderThumb={(props) => {
           const { key, ...restProps } = props;

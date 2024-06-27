@@ -6,8 +6,7 @@ function Product(product) {
   const nav = useNavigate();
 
   function openProduct() {
-    console.log(product);
-    nav(`/api/product/${product._id}`);
+    nav(`/product/${product._id}`);
   }
 
   return (

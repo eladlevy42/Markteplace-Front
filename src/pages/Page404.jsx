@@ -5,7 +5,7 @@ function Page404() {
   const navigate = useNavigate();
 
   function goBack() {
-    navigate("/api/product", { replace: true });
+    navigate("/product", { replace: true });
   }
 
   return (
